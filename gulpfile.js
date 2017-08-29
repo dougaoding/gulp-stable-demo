@@ -74,9 +74,11 @@ gulp.task('uglify', function() {
 // lib库放置位置
 gulp.task('lib', function() {
     // 获取要压缩的js
-    return gulp.src('./lib/**')
+    return gulp.src('./libs/**')
+        // 压缩js    
+        .pipe(uglify())
         // 输出结果
-        .pipe(gulp.dest('./dist/lib'))
+        .pipe(gulp.dest('./dist/libs'))
 })
 
 // 压缩图片

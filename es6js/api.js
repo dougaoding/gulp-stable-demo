@@ -1,5 +1,6 @@
 const API = {
-    test: 'test'
+    test: 'test',
+    whf
 }
 
 module.exports = API;
