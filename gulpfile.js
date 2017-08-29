@@ -14,6 +14,15 @@ const autoprefixer = require('gulp-autoprefixer')
 const babel = require('gulp-babel')
 const browserify = require('gulp-browserify')
 const sourcemaps = require('gulp-sourcemaps');
+
+//让gulp碰到错误不停止
+function swallowError(error) {
+    // If you want details of the error in the console
+    console.error(error.toString())
+
+    this.emit('end')
+}
+
 // 编译less
 gulp.task('less', function() {
         // 将你的默认的任务代码放在这
@@ -28,7 +37,9 @@ gulp.task('less', function() {
         //     .pipe(cleanCSS({ compatibility: 'ie8' }))
         //     //打包出来
         //     .pipe(gulp.dest('./dist/css'))
-        return gulp.src('./less/*.less').pipe(less())
+        return gulp.src('./less/*.less')
+            .pipe(less())
+            .on('error', swallowError)
             .pipe(gulp.dest('./css'))
     })
     // 压缩css
@@ -49,11 +60,14 @@ gulp.task('uglifyCss', function() {
     // 开发模式编译babel
 gulp.task('es6toes5', function() {
         return gulp.src('./es6js/*.js')
-            .pipe(sourcemaps.init())
-            // es6 -> es5
-            .pipe(babel({
+
+        .pipe(sourcemaps.init())
+
+        // es6 -> es5
+        .pipe(babel({
                 presets: ['env']
             }))
+            .on('error', swallowError)
             // 压缩js    
             // .pipe(uglify())
             // 引入requirejs
