@@ -1,6 +1,6 @@
 const API = {
     test: 'test',
-    whf: whf
+    whf
 }
 
 function whf() {

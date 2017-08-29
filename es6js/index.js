@@ -1,7 +1,13 @@
 //引入全局变量
 const api = require('./api.js');
+const { whf } = api;
 //引入jquery
-const $ = require('../libs/jquery-1.11.1.min.js');
+
 $(document).ready(function() {
-    console.log(api.whf);
+    whf();
+    //  屏幕大小改变,再次改变
+    $(window).resize(function() {
+        whf();
+    });
+
 });

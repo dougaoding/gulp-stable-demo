@@ -81,6 +81,11 @@ gulp.task('uglify', function() {
     // 获取要压缩的js
 
     return gulp.src('./js/*.js')
+        // es6 -> es5
+        .pipe(babel({
+            presets: ['env']
+        }))
+        .pipe(browserify())
         // 输出压缩后的结果
         .pipe(gulp.dest('./dist/js'))
 })
@@ -91,8 +96,9 @@ gulp.task('lib', function() {
     return gulp.src('./libs/**')
         // 压缩js    
         .pipe(uglify())
-        // 输出结果
-        .pipe(gulp.dest('./dist/libs'))
+
+    // 输出结果
+    .pipe(gulp.dest('./dist/libs'))
 })
 
 // 压缩图片
